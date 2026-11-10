@@ -9,5 +9,8 @@
       "version": "12.18.0",
       "onFail": "download"
     }
+  },
+  "scripts": {
+    "dev": "pnpm --filter @netlab/backend dev"
   }
 }
