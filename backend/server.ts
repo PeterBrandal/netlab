@@ -21,8 +21,8 @@ fastify.register(async function (fastify) {
             env: process.env,
         })
 
-        socket.on('message', message => {
-            shell.write(message.toString() + '\r')
+        socket.on('message', m => {
+            shell.write(m.toString())
         })
 
         socket.on('close', () => {
