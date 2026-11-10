@@ -16,6 +16,7 @@ fastify.register(async function (fastify) {
 
         if (origin !== 'http://localhost:5173') {
             socket.close(1008, "CORS denied")
+            return
         }
 
         console.log(req.headers)
