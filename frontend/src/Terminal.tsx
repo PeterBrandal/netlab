@@ -11,11 +11,17 @@ export function Terminal() {
         if (!container) return
 
         const term = new Xterm()
+        const ws = new WebSocket('ws://localhost:3000/')
+
+        term.onData(data => ws.send(data))
+
+        ws.onmessage = (event) => term.write(event.data)
+
         term.open(container)
-        term.write('hello from xterm\r\n')
 
         return () => {
             term.dispose()
+            ws.close()
         }
     },[]) 
 

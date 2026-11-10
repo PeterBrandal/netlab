@@ -3,7 +3,6 @@ import websocket from '@fastify/websocket'
 import * as pty from 'node-pty'
 
 
-
 const fastify = Fastify({
     logger: true
 })
@@ -13,6 +12,13 @@ await fastify.register(websocket)
 fastify.register(async function (fastify) {
     fastify.get('/', { websocket: true }, (socket, req) => {
 
+        const origin = req.headers.origin
+
+        if (origin !== 'http://localhost:5173') {
+            socket.close(1008, "CORS denied")
+        }
+
+        console.log(req.headers)
         const shell = pty.spawn('bash', [], {
             name: 'xterm-256color',
             cols: 80,
